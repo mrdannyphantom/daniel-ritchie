@@ -1,0 +1,106 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+
+    <!--Introduction Section-->
+    <section class="hero">
+        <div class="hero--content">
+            <div class="hero--content--intro">
+                <img id="profile_pic" src="{% static 'images/animeghostboy.jpg' %}">
+                <h1 class="intro--name">DANIEL <br> RITCHIE</h1>
+            </div>
+            <div class="hero--content--subheadline">
+                <h3 class="description">Mechanical Engineering <br> Student and Part-Time <br> FullStack Web Developer</h3>
+                <p class="slogan">I build working robots and cool coding projects</p>
+            </div>  
+        </div>
+    </section>
+
+    <!--Projects Section-->
+    <section class="container">
+
+        <div class="projects--wrapper">
+            <h1 class="projects--title">
+                My Projects
+            </h1>
+            <div class="projects--group">
+            
+                {% for project in projects %}
+                <div class="project--column">
+                    <a href="{% url 'project' project.id %}">
+                        <img id='prj_1' src="{{project.thumbnail.url}}">
+                    </a>
+                    <div class="project--body">
+                        <h5>{{project.title}}</h5>
+                    </div>
+                </div>
+                {% empty %}
+        
+                <h3>There are no projects in the database...</h3>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!--About Me-->
+    <section class="about--container">
+        <div class="about--wrapper">
+            <h1 class="about--title">More About Me</h1>
+            <h5 class="about--description">
+                illway ouyay easeplay onephay . ouyay easeplay answeryay atthay onephay . ethay itekay ippedday andyay ayedsway , utbay ayedstay aloftyay . addyay ethay olumncay andyay utpay ethay umsay erehay . aketay ayay ancechay andyay inway ayay inachay ollday . 
+            </h5>
+            <h5 class="about--description">
+                illway ouyay easeplay answeryay atthay onephay . illway ouyay easeplay answeryay atthay onephay . ethay itekay ippedday andyay ayedsway , utbay ayedstay aloftyay . addyay ethay olumncay andyay utpay ethay umsay erehay . aketay ayay ancechay andyay inway
+            </h5>
+        </div>
+    </section>
+
+    <!--Skills Section-->
+    <section class="section--1">
+        <div class="skills--container">
+            <h1 class="skills--title">Skills</h1>
+
+            {% for skill in detailedSkills %}
+            <div class="skills--wrapper">
+                <h3>{{skill.title}}</h3>
+                <p>{{skill.body}}</p>
+            </div>
+            {% endfor %}
+
+            <div class="other--skills--container">
+                <h1 class="tag--title">Other Skills</h1>
+                <div class="other--skills--wrapper">
+                    {% for skill in skills %}
+                    <div class="skill--tag">
+                        <span>{{skill.title}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!--Contact Section-->
+    <section class="contact--container">
+        <div class="contact--wrapper">
+            <h1 class="contact--title">Contact Me</h1>
+            <form class="contact--form" method="POST">
+                {% csrf_token %}
+        
+                {% for field in form %}
+        
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+        
+                {% endfor %}
+        
+                <input class='btn btn-primary' type='submit' value='submit'>
+        
+            </form>
+        </div>
+    </section>
+
+{% endblock content %}
